@@ -11,7 +11,7 @@ import genanki
 # --- Custom Anki Template ---
 # Front template with interactive dictation features
 CUSTOM_FRONT_TEMPLATE = r"""
-<div class="card-header">English Sentence Dictation</div>
+<div class="card-header">Dictation Practice</div>
 
 <br />
 <div>
@@ -67,7 +67,7 @@ CUSTOM_FRONT_TEMPLATE = r"""
   <div id="hint-content-{{UUID}}"></div>
 </div>
 
-<div id="correct-answer-{{UUID}}" style="display: none">{{Text_en}}</div>
+<div id="correct-answer-{{UUID}}" style="display: none">{{Sentence}}</div>
 
 <script>
   // Create a global object to hold handlers for each card, preventing conflicts.
@@ -290,8 +290,8 @@ CUSTOM_BACK_TEMPLATE = r"""
 <hr />
 
 <div class="answer-content">
-  <div class="sentence" id="sentence-{{UUID}}">{{Text_en}}</div>
-  <div class="meaning">{{Text_cn}}</div>
+  <div class="sentence" id="sentence-{{UUID}}">{{Sentence}}</div>
+  <div class="meaning">{{Translation}}</div>
 </div>
 
 <div id="mistakes-table-container-{{UUID}}"></div>
@@ -372,9 +372,9 @@ CUSTOM_BACK_TEMPLATE = r"""
               
               // Render mistakes table
               if (Object.keys(mistakes).length > 0) {
-                  let tableHTML = '<div class="mistakes-header">Review Your Mistakes</div>';
-                  tableHTML += '<table class="mistakes-table">';
-                  tableHTML += '<tr><th>Correct Word</th><th>Your Input</th></tr>';
+                  let tableHTML = '<div class="mistakes-header">Mistake Review</div>';
+              tableHTML += '<table class="mistakes-table">';
+              tableHTML += '<tr><th>Target Word</th><th>Your Attempt</th></tr>';
                   for (const correct in mistakes) {
                       // Handle array display: join incorrect words array with commas
                       const incorrectDisplay = Array.isArray(mistakes[correct]) 
@@ -556,8 +556,8 @@ ANKI_MODEL = genanki.Model(
     fields=[
         {"name": "Audio"},
         {"name": "AudioRaw"},
-        {"name": "Text_en"},
-        {"name": "Text_cn"},
+        {"name": "Sentence"},
+        {"name": "Translation"},
         {"name": "UUID"},
     ],
     templates=[
@@ -569,4 +569,3 @@ ANKI_MODEL = genanki.Model(
     ],
     css=CUSTOM_CSS,
 )
-
